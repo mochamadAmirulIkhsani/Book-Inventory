@@ -31,6 +31,12 @@ func Migrate(db *gorm.DB) {
 		log.Fatal(err)
 	}
 
+	var count int64
+	db.Model(&models.Books{}).Count(&count)
+	if count == 0 {
+		seederBook(db)
+	}
+
 	data := models.Books{}
 	if db.Find(&data).Error != nil {
 		seederBook(db)
