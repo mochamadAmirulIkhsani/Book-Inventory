@@ -18,10 +18,12 @@ func New(db *gorm.DB) Handler {
 
 func (h *Handler) GetBooks(c *gin.Context) {
 	var books []models.Books
+	auth := c.Query("auth")
 
 	h.DB.Find(&books)
 	c.HTML(http.StatusOK, "index.html", gin.H{
 		"title":   "Home Page",
 		"payload": books,
+		"auth":    auth,
 	})
 }
