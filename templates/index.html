@@ -1,10 +1,49 @@
 {{ template "header.html" . }}
 
-    {{range .payload}}
-        <a href="/book/{{.ID}}?auth={{$.auth}}">
-            <h2>{{.Title}}</h2>
-        </a>
-        <p>penulis : {{.Author}}</p>
+<div class="py-4">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end gap-3 mb-4">
+        <div>
+            <h1 class="display-6 fw-bold mb-1">Book Collection</h1>
+            <p class="text-muted mb-0">Kelola daftar buku dengan tampilan yang lebih rapi dan mudah dipindai.</p>
+        </div>
+        <div class="badge bg-dark text-white rounded-pill px-3 py-2">
+            {{len .payload}} books
+        </div>
+    </div>
+
+    {{if .payload}}
+    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4">
+        {{range .payload}}
+        <div class="col">
+            <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden">
+                <div class="card-body p-4 d-flex flex-column">
+                    <div class="d-flex justify-content-between align-items-start gap-3 mb-3">
+                        <span class="badge text-bg-primary rounded-pill px-3 py-2">Book #{{.ID}}</span>
+                        <span class="badge text-bg-light border text-dark rounded-pill px-3 py-2">Stock: {{.Stock}}</span>
+                    </div>
+
+                    <h2 class="h4 fw-bold mb-2">{{.Title}}</h2>
+                    <p class="text-muted mb-2">Penulis: {{.Author}}</p>
+
+                    <p class="text-secondary flex-grow-1 mb-4">
+                        {{.Description}}
+                    </p>
+
+                    <a class="btn btn-dark rounded-pill px-4 align-self-start" href="/book/{{.ID}}?auth={{$.auth}}">
+                        Lihat detail
+                    </a>
+                </div>
+            </div>
+        </div>
+        {{end}}
+    </div>
+    {{else}}
+    <div class="text-center py-5">
+        <div class="mx-auto mb-3 rounded-circle bg-light d-flex align-items-center justify-content-center" style="width: 72px; height: 72px; font-size: 2rem;">📚</div>
+        <h2 class="h4 fw-semibold">Belum ada buku</h2>
+        <p class="text-muted mb-0">Tambahkan buku baru agar daftar ini terisi.</p>
+    </div>
     {{end}}
+</div>
 
 {{ template "footer.html" . }}
