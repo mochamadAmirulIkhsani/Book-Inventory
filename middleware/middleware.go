@@ -20,9 +20,9 @@ func AuthValid(c *gin.Context) {
 		}
 	}
 
-	token, err := jwt.Parse(tokenstring, func(token *jwt.Token) (interface{}, error) {
-		if _, invalid := token.Method.(*jwt.SigningMethodHMAC); !invalid {
-			return nil, fmt.Errorf("Invalid Token ", token.Header["alg"])
+	token, err := jwt.Parse(tokenstring, func(token *jwt.Token) (any, error) {
+		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+			return nil, fmt.Errorf("Invalid Token: %v ", token.Header["alg"])
 		}
 		return []byte(models.SECRET), nil
 	})

@@ -1,39 +1,30 @@
 {{ template "header.html" . }}
 
-<section class="section">
+<body class="container py-4">
+
+  <section class="section">
     <form action="/login" method="post">
-        
-        <div class="container" style="border: 1px solid #ccc; padding: 20px;">
-            {{ if .content }}
-            <div class="notification is-danger is-light">
-                {{.content}}
-            </div>
+      <div class="container" style="max-width: 480px; border: 1px solid #ccc; padding: 20px; border-radius: 8px;">
+        {{ if .content }}
+        <div class="alert alert-danger" role="alert">
+          {{ .content }}
+        </div>
+        {{ end }}
 
-            {{ end }}
-
-          <div class="field">
-            <label class="label">Username</label>
-            <div class="control">
-                <input class="input" type="text" name="username" placeholder="Enter your username" required>
-            </div>
-         </div>
-
-            <div class="field">
-              <label class="label">Password</label>
-              <div class="control">
-                <input class="input" type="password" name="password" placeholder="Enter your password" required>
-             </div>
-          </div>
-
-          <div>
-             <button type="submit" class="btn btn-primary">Login</button>
-          </div>
-
-        
+        <div class="mb-3">
+          <label class="form-label">Username</label>
+          <input class="form-control" type="text" name="username" placeholder="Enter your username" required>
         </div>
 
-    </form>
+        <div class="mb-3">
+          <label class="form-label">Password</label>
+          <input class="form-control" type="password" name="password" placeholder="Enter your password" required>
+        </div>
 
-</section>
+        <button type="submit" class="btn btn-primary">Login</button>
+      </div>
+    </form>
+  </section>
+</body>
 
 {{ template "footer.html" . }}
